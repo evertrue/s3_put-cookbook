@@ -1,41 +1,34 @@
-actions :upload
 default_action :upload
 
 property :source_file,       String, name_attribute: true
 property :bucket,            String, required: true
-property :remote_path,       String, required: true
-property :access_key_id,     String, required: true
-property :secret_access_key, String, required: true
+property :remote_path,       String, required: true, callbacks: { 'should not be empty' => ->(p) { !p.empty? } }
+property :region,            String, default: 'us-east-1'
+property :access_key_id,     String
+property :secret_access_key, String
+
+chef_gem 'aws-sdk'
+
+require 'aws-sdk'
+
+Aws.config.update(
+  credentials: Aws::Credentials.new(access_key_id, secret_access_key)
+) if access_key_id && secret_access_key
+
+s3 = Aws::S3::Resource.new region: region
+
+remote_path << '/' unless remote_path.end_with? '/'
 
 action :upload do
-  fail 'remote_path required for upload' if remote_path.empty?
-
-  chef_gem 'aws-s3'
-
-  require 'aws/s3'
-
-  AWS::S3::Base.establish_connection!(
-    access_key_id:     access_key_id,
-    secret_access_key: secret_access_key
-  )
-
-  file_name = ::File.basename source_file
-
-  AWS::S3::S3Object.store(
-    file_name,
-    open(source_file),
-    bucket + remote_path
-  )
+  s3.bucket(bucket).object(remote_path + filename).upload_file source_file
 end
 
 action :delete do
-  AWS::S3::Base.establish_connection!(
-    access_key_id:     access_key_id,
-    secret_access_key: secret_access_key
-  )
+  s3.bucket(bucket).object(remote_path + filename).delete
+end
 
-  AWS::S3::S3Object.delete(
-    source_file,
-    bucket + remote_path
-  )
+private
+
+def filename
+  ::File.basename source_file
 end
