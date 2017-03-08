@@ -2,7 +2,7 @@ default_action :upload
 
 property :source_file,       String, name_attribute: true
 property :bucket,            String, required: true
-property :remote_path,       String, required: true, callbacks: { 'should not be empty' => ->(p) { !p.empty? } }
+property :remote_path,       String, required: true
 property :region,            String, default: 'us-east-1'
 property :access_key_id,     String
 property :secret_access_key, String
