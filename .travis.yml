@@ -10,6 +10,9 @@ addons:
     - chef-stable-precise
     packages:
     - chefdk
+branches:
+  only:
+  - master
 env:
   matrix:
   - TEST=cookstyle
