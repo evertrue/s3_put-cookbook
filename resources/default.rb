@@ -24,28 +24,29 @@ property :region,            String, default: 'us-east-1'
 property :access_key_id,     String
 property :secret_access_key, String
 
-chef_gem 'aws-sdk'
-
 require 'aws-sdk'
 
-Aws.config.update(
-  credentials: Aws::Credentials.new(access_key_id, secret_access_key)
-) if access_key_id && secret_access_key
-
-s3 = Aws::S3::Resource.new region: region
-
-remote_path << '/' unless remote_path.end_with? '/'
-
 action :upload do
-  s3.bucket(bucket).object(remote_path + filename).upload_file source_file
+  s3_object.upload_file new_resource.source_file
 end
 
 action :delete do
-  s3.bucket(bucket).object(remote_path + filename).delete
+  s3_object.delete
 end
 
-private
+action_class do
+  def s3_object
+    Aws.config.update(
+      credentials: Aws::Credentials.new(new_resource.access_key_id, new_resource.secret_access_key)
+    ) if new_resource.access_key_id && new_resource.secret_access_key
 
-def filename
-  ::File.basename source_file
+    s3 = Aws::S3::Resource.new region: new_resource.region
+
+    remote_path = "#{new_resource.remote_path}/" unless new_resource.remote_path.end_with? '/'
+    s3.bucket(new_resource.bucket).object remote_path + filename
+  end
+
+  def filename
+    ::File.basename new_resource.source_file
+  end
 end

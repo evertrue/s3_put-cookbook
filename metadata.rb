@@ -11,4 +11,6 @@ issues_url 'https://github.com/evertrue/s3_put-cookbook/issues' if respond_to?(:
 
 supports 'ubuntu', '>= 14.04'
 
-chef_version '>= 12.5'
+chef_version '>= 12.8'
+
+gem 'aws-sdk'
