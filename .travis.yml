@@ -18,6 +18,7 @@ env:
   - TEST=cookstyle
   - TEST="foodcritic ."
   - TEST="chef exec rspec"
+  - TEST="kitchen test -d always"
 before_install:
 - chef --version
 - eval "$(chef shell-init bash)"
