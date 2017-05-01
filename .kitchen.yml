@@ -7,6 +7,7 @@ driver:
   security_group_ids:
     - ci-testing
   instance_type: c3.large
+  iam_profile_name: test-kitchen
   interface: public
   tags:
     Env: dev
@@ -29,3 +30,7 @@ suites:
   - name: default
     run_list:
       - recipe[s3_put::default]
+    attributes:
+      test_s3_put:
+        bucket: ops
+        remote_path: chef/test_s3_put
