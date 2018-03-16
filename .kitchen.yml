@@ -37,3 +37,17 @@ suites:
       test_s3_put:
         bucket: ops
         remote_path: chef/test_s3_put
+
+  - name: default-chef12
+    driver:
+      tags:
+        Name: s3-put-default-chef12-ubuntu-1604
+    provisioner:
+      product_name: chef
+      product_version: 12
+    run_list:
+      - recipe[test_s3_put::default]
+    attributes:
+      test_s3_put:
+        bucket: ops
+        remote_path: chef/test_s3_put
