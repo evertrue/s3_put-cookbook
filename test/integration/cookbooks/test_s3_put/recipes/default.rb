@@ -9,6 +9,7 @@ s3_put 'test' do
 end
 
 s3_put 'delete_test' do
+  source_file       'test'
   bucket            node['test_s3_put']['bucket']
   remote_path       node['test_s3_put']['remote_path']
   action            :delete
