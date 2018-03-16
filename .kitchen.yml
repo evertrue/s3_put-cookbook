@@ -1,17 +1,16 @@
 ---
 driver:
   name: ec2
-  aws_ssh_key_id: <%= ENV['AWS_KEYPAIR_NAME'] %>
-  region: us-east-1
-  availability_zone: us-east-1b
+  subnet_id: subnet-f1f6acac  # development-public-us-east-1b
   security_group_ids:
-    - ci-testing
-  instance_type: c3.large
+    - sg-8fea3af9  # ci-testing-vpc
+  instance_type: c5.large
   iam_profile_name: test-kitchen
   interface: public
   tags:
-    Env: dev
+    Env: public
     Type: test
+    Operator: <%= ENV['USER'] %>
 
 transport:
   name: sftp
@@ -35,7 +34,7 @@ suites:
       - recipe[test_s3_put::default]
     attributes:
       test_s3_put:
-        bucket: ops
+        bucket: darksky-ops
         remote_path: chef/test_s3_put
 
   - name: default-chef12
@@ -49,5 +48,5 @@ suites:
       - recipe[test_s3_put::default]
     attributes:
       test_s3_put:
-        bucket: ops
+        bucket: darksky-ops
         remote_path: chef/test_s3_put
