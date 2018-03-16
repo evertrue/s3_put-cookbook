@@ -25,6 +25,10 @@ s3_put 'path/to/my/file.tar.gz' do
 end
 ```
 
+Note that the resultant path will be the `remote_path` combined with the filename you are uploading. For this example, that would be `#{remote_path}/file.tar.gz`.
+
+The `access_key_id` and `secret_access_key` are optional; credentials will be picked up per the AWS SDK from a user’s credentials file or an instance role if you do not provide the credentials directly.
+
 Conversely, to delete one:
 
 ```ruby
@@ -39,4 +43,5 @@ end
 
 ## Author
 
-Author:: Eric Herot (<eric.herot@evertrue.com>)
+Author:: Eric Herot <eric.herot@evertrue.com>  
+Author:: Jeff Byrnes <thejeffbyrnes@gmail.com>
