@@ -32,7 +32,7 @@ suites:
       tags:
         Name: s3-put-default-ubuntu-1604
     run_list:
-      - recipe[s3_put::default]
+      - recipe[test_s3_put::default]
     attributes:
       test_s3_put:
         bucket: ops
