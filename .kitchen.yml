@@ -28,6 +28,9 @@ platforms:
 
 suites:
   - name: default
+    driver:
+      tags:
+        Name: s3-put-default-ubuntu-1604
     run_list:
       - recipe[s3_put::default]
     attributes:
