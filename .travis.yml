@@ -10,14 +10,6 @@ addons:
     - chefdk
 if: "(type = pull_request) OR (tag IS present) OR (branch = master)"
 before_install:
-- openssl aes-256-cbc -K $encrypted_cf6b87a47dea_key -iv $encrypted_cf6b87a47dea_iv
-  -in secrets.tar.enc -out secrets.tar -d
-- tar -xvf secrets.tar -C $HOME
-- mv $HOME/.aws/ds_travis_credentials $HOME/.aws/credentials
-- echo 'node_name "ds_bot"' >> $HOME/.chef/knife.rb
-- echo "client_key '$HOME/.chef/ds_bot.pem'" >> $HOME/.chef/knife.rb
-- echo 'chef_server_url "https://chef.darksky.net/organizations/darksky"' >> $HOME/.chef/knife.rb
-- chmod 600 $HOME/.chef/knife.rb $HOME/.chef/ds_bot.pem $HOME/.ssh/ds_travis_ci
 - eval "$(chef shell-init bash)"
 - chef --version
 install:
