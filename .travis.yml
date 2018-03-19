@@ -13,6 +13,5 @@ before_install:
 - eval "$(chef shell-init bash)"
 - chef --version
 install:
-- chef gem install kitchen-sync
 - berks
-script: chef exec delivery local all
+script: chef exec delivery local verify
