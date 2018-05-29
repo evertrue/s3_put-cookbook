@@ -1,7 +1,6 @@
 ---
 driver:
   name: ec2
-  aws_ssh_key_id: <%= ENV['AWS_KEYPAIR_NAME'] %>
   region: us-east-1
   availability_zone: us-east-1b
   security_group_ids:
@@ -12,10 +11,6 @@ driver:
   tags:
     Env: dev
     Type: test
-
-transport:
-  name: sftp
-  ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
 
 provisioner:
   name: chef_zero
