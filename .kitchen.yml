@@ -22,7 +22,7 @@ suites:
   - name: default
     driver:
       tags:
-        Name: s3-put-default-ubuntu-1604
+        Name: s3-put-default
     run_list:
       - recipe[test_s3_put::default]
     attributes:
@@ -33,7 +33,7 @@ suites:
   - name: default-chef12
     driver:
       tags:
-        Name: s3-put-default-chef12-ubuntu-1604
+        Name: s3-put-default-chef12
     provisioner:
       product_name: chef
       product_version: 12
