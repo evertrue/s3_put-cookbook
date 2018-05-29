@@ -7,7 +7,6 @@ driver:
     - ci-testing
   instance_type: c3.large
   iam_profile_name: test-kitchen
-  interface: public
   tags:
     Env: dev
     Type: test
