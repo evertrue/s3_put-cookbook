@@ -3,8 +3,6 @@ driver:
   name: ec2
   region: us-east-1
   availability_zone: us-east-1b
-  security_group_ids:
-    - ci-testing
   instance_type: c3.large
   iam_profile_name: test-kitchen
   tags:
