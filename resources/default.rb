@@ -17,7 +17,7 @@
 
 default_action :upload
 
-property :source_file,       String, name_attribute: true
+property :source_file,       String, name_property: true
 property :bucket,            String, required: true
 property :remote_path,       String, required: true
 property :region,            String, default: 'us-east-1'
