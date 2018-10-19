@@ -1,5 +1,10 @@
 # CHANGELOg for s3_put cookbook
 
+## v2.0.1
+
+* Use `name_property`, not `name_attribute`
+    - Should have been included with #3
+
 ## v2.0.0
 
 * Refactor into a custom resource (#3)
